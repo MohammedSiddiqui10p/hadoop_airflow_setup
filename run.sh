@@ -3,6 +3,10 @@
 current_dir=$(pwd)
 zone_cluster_file_name="/zoneCluster.sh"
 zone_cluster_path=$current_dir$zone_cluster_file_name
+NET=172.32.255
+SUBNET=16/28
+RANGE=16/28
+HADOOP_CONTAINER_NAME=Hadoop
 
 dockerHadoopAirflowBuild() {
     docker build . -t hadoop_airflow_cluster
@@ -19,7 +23,6 @@ executeZoneCluster() {
 setup() {
 #    dockerHadoopAirflowBuild
     executeZoneCluster
-    docker-compose build
 }
 
 install() {
@@ -32,13 +35,16 @@ if [ "$1" == "install" ]; then
 elif [ "$1" == "setup" ]; then
     setup
 elif [ "$1" == "start" ]; then
-    executeZoneCluster start
+    docker network rm znet &>/dev/null
+    docker network create --subnet ${NET}.${SUBNET} --ip-range=${NET}.${RANGE} znet &>/dev/null # 18-30
     docker-compose up -d
+    executeZoneCluster start
 elif [ "$1" == "stop" ]; then
      docker-compose down
      executeZoneCluster stop
 elif [ "$1" == "destroy" ]; then
-     executeZoneCluster Stop
+    docker-compose down
+    executeZoneCluster Stop
 elif [ "$1" == "restart" ]; then
    docker-compose restart
    executeZoneCluster restart

@@ -4,8 +4,8 @@ NET=172.32.255
 SUBNET=16/28
 RANGE=16/28
 HADOOP_CONTAINER_NAME=Hadoop
-docker network rm znet &>/dev/null
-docker network create --subnet ${NET}.${SUBNET} --ip-range=${NET}.${RANGE} znet &>/dev/null # 18-30
+#docker network rm znet &>/dev/null
+#docker network create --subnet ${NET}.${SUBNET} --ip-range=${NET}.${RANGE} znet &>/dev/null # 18-30
 IP=30
 unset HOSTS
 
@@ -36,7 +36,7 @@ arg00(){
   -p 8787:8787 \
   -p 60010:60010 \
   -p 60030:60030 \
-  -d mohammedsiddiqui353/hadoop_airflow_cluster
+  -d hadoop_airflow_cluster
 
 #  NAMENODE=hadoop
 #  CONTAINER=Hadoop

@@ -1,0 +1,50 @@
+# Sqoop Import Commands
+
+## Bulk copy whole table
+sqoop import \
+    --username root \
+    --num-mappers 1 \
+    --connect jdbc:mysql://hadoop_airflow_setup_mysql_1:3306/training \
+    --target-dir hdfs:///training/customer/data \
+    --as-textfile \
+    --table customer \
+
+## Bulk copy using a query
+sqoop import \
+    --username root \
+    --num-mappers 1 \
+    --connect jdbc:mysql://hadoop_airflow_setup_mysql_1:3306/training \
+    --target-dir hdfs:///training/customer \
+    --as-textfile \
+    --query "SELECT * FROM training.customer WHERE $CONDITIONS" \
+
+
+
+# Useful HDFS Commands
+hdfs dfs -ls /
+hdfs dfs -mkdir /my_data
+hdfs dfs -ls /
+hdfs dfs -copyFromLocal /root/notebooks/sample_file.txt /my_data
+hdfs dfs -ls /my_data
+hdfs dfs -rm -r /training/customer
+
+
+
+# Setup Hive Metadatabase
+rm metastore_db -fR
+schematool -initSchema -dbType derby
+
+
+
+# Hive Commands
+hive
+hive-cli >: CREATE DATABASE training;
+hive-cli >: use training;
+hive-cli >: CREATE TABLE customer ``````````````;
+hive-cli >: LOAD DATA INPATH '/training/customers/' OVERWRITE INTO TABLE customer;
+hive-cli >: SELECT * FROM customer LIMIT 5;
+hive-cli >: set hive.cli.print.header=true;
+
+
+
+# Sqoop Export Commands

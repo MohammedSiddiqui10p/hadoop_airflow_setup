@@ -1,0 +1,22 @@
+Docker install
+Docker-compose install
+./run.sh setup
+./run.sh start
+docker exec -it Hadoop bash
+airflow scheduler -D
+airflow webserver -p 9001 -D
+rm metastore_db -fR
+schematool -initSchema -dbType derby
+mkdir notebooks/dags
+
+Notebook => http://localhost:8888
+Airflow => http://localhost:9001
+
+Create new file my_pipeline.py
+Create airflow mysql connection
+
+
+mysql -h hadoop_airflow_setup_mysql_1 -u root < sample_db.sql
+
+
+pkill -f airflow

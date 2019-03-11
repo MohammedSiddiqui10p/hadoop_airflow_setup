@@ -3,11 +3,11 @@ services:
   mysql:
     image: mysql:5.7.21
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
       MYSQL_USER: 'root'
-
 networks:
   default:
     external:
