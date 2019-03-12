@@ -1,6 +1,8 @@
 # Import Sample Data
-cd /root/notebooks
+./run.sh resume
+service mysql start / restart
 mysql -h hadoop_airflow_setup_mysql_1 -u root < sample_db.sql
+
 
 
 # Sqoop Import Commands
@@ -36,8 +38,7 @@ hdfs dfs -rm -r /my_data
 
 
 # Setup Hive Metadatabase
-rm metastore_db -fR
-schematool -initSchema -dbType derby
+schematool -initSchema -dbType mysql
 
 
 
@@ -45,7 +46,25 @@ schematool -initSchema -dbType derby
 hive
 hive-cli >: CREATE DATABASE training;
 hive-cli >: use training;
-hive-cli >: CREATE TABLE customer ``````````````;
+hive-cli >: 
+CREATE TABLE `training.customer` (
+  CUST_CODE string,
+  CUST_NAME string,
+  CUST_CITY string,
+  WORKING_AREA string,
+  CUST_COUNTRY string,
+  GRADE int,
+  OPENING_AMT string,
+  RECEIVE_AMT string,
+  PAYMENT_AMT string,
+  OUTSTANDING_AMT string,
+  PHONE_NO string,
+  AGENT_CODE string
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\,'
+
+hive-cli >: SHOW CREATE TABLE customer;
 hive-cli >: LOAD DATA INPATH '/training/customers/data' OVERWRITE INTO TABLE customer;
 hive-cli >: SELECT * FROM customer LIMIT 5;
 hive-cli >: set hive.cli.print.header=true;

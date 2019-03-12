@@ -1,1 +1,31 @@
-lab2
+# Exit Hive
+hive-cli >: exit;
+
+
+
+# Notebook
+1. Go to Notebook => http://localhost:8888 Create new folder
+2. Rename new folder into `dags`
+3. Move `my_pipeline.py` inside `dags` folder
+4. Open `my_pipeline.py`
+
+
+
+# Start Airflow
+1. airflow scheduler -D
+2. airflow webserver -p 9001 -D
+3. Airflow server => http://localhost:9001
+4. Create airflow Mysql connection
+        conn id = docker_mysql
+        conn type = MySQL
+        host = jdbc:mysql://hadoop_airflow_setup_mysql_1
+        schema = training
+        username = root
+        password =
+        port = 3306
+5. Enable DAG scheduling
+
+
+
+# Airflow kill command - Dont run them now
+# pkill -f airflow

@@ -39,6 +39,9 @@ elif [ "$1" == "start" ]; then
     docker network create --subnet ${NET}.${SUBNET} --ip-range=${NET}.${RANGE} znet &>/dev/null # 18-30
     docker-compose up -d
     executeZoneCluster start
+elif [ "$1" == "resume" ]; then
+    docker-compose up -d
+    executeZoneCluster start
 elif [ "$1" == "stop" ]; then
      docker-compose down
      executeZoneCluster stop
