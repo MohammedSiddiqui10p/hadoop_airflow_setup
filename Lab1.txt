@@ -1,3 +1,8 @@
+# Import Sample Data
+cd /root/notebooks
+mysql -h hadoop_airflow_setup_mysql_1 -u root < sample_db.sql
+
+
 # Sqoop Import Commands
 
 ## Bulk copy whole table
@@ -26,7 +31,7 @@ hdfs dfs -mkdir /my_data
 hdfs dfs -ls /
 hdfs dfs -copyFromLocal /root/notebooks/sample_file.txt /my_data
 hdfs dfs -ls /my_data
-hdfs dfs -rm -r /training/customer
+hdfs dfs -rm -r /my_data
 
 
 
@@ -41,7 +46,7 @@ hive
 hive-cli >: CREATE DATABASE training;
 hive-cli >: use training;
 hive-cli >: CREATE TABLE customer ``````````````;
-hive-cli >: LOAD DATA INPATH '/training/customers/' OVERWRITE INTO TABLE customer;
+hive-cli >: LOAD DATA INPATH '/training/customers/data' OVERWRITE INTO TABLE customer;
 hive-cli >: SELECT * FROM customer LIMIT 5;
 hive-cli >: set hive.cli.print.header=true;
 
